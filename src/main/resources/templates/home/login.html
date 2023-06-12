@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- METATAGS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- CSS ANIMATE -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">-->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- STYLES -->
+    <link rel="stylesheet" href="/css/estilo.css">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/jpg" sizes="16x16" href="/images/favipacifico.jpg">
+
+    <title>Login</title>
+</head>
+<body>
+<section class="login animated zoomIn">
+
+    <img class="login__avatar"
+         onmouseover="this.className = 'login__avatar animated flip'"
+         onmouseout="this.className = 'login__avatar'"
+         src="images/logo-pacifico.jpg" alt="logo-pacifico">
+    <h1 class="login__title">Login</h1>
+    <form th:action="@{/users/login}" method="post" th:object="${user}">
+        <!-- USERNAME -->
+        <label class="login__label">
+            Username
+            <input
+                    class="login__input login__input__username"
+                    type="text" placeholder="Usuario"
+                    th:field="${user.firstName}"/>
+        </label>
+
+        <!-- PASSWORD -->
+        <label class="login__label">
+            Password
+            <input
+                    class="login__input login__input__password"
+                    type="password" placeholder="Password"
+                    th:field="${user.password}"/>
+        </label>
+
+        <!-- BUTTON -->
+        <input class="login__input login__input__button" type="submit" value="Login"/>
+
+        <!-- LINKS -->
+        <a class="login__link" href="/users/register">No tienes una cuenta?</a>
+    </form>
+</section>
+
+</body>
+</html>
