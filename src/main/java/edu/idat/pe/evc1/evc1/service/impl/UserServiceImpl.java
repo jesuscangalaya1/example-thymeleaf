@@ -8,6 +8,9 @@ import edu.idat.pe.evc1.evc1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -46,6 +49,25 @@ public class UserServiceImpl implements UserService {
 
         throw new RuntimeException("Credenciales inválidas"); // Lanzar excepción en caso de credenciales inválidas
     }
+
+    @Override
+    public List<UserResponse> getAllUsers() {
+        List<UserEntity> userList = userRepository.findAll();
+        List<UserResponse> userResponseList = new ArrayList<>();
+
+        for (UserEntity userEntity : userList) {
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(userEntity.getId());
+            userResponse.setFirstName(userEntity.getFirstName());
+            userResponse.setLastName(userEntity.getLastName());
+            userResponse.setEmail(userEntity.getEmail());
+
+            userResponseList.add(userResponse);
+        }
+
+        return userResponseList;
+    }
+
 
 
 }

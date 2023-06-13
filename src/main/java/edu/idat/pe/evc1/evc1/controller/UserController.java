@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -34,7 +36,8 @@ public class UserController {
             UserResponse userResponse = userService.loginUser(userRequest);
             if (userResponse != null && userResponse.getFirstName().equals(userRequest.getFirstName()) && userResponse.getPassword().equals(userRequest.getPassword())) {
                 // Usuario autenticado, puedes realizar las acciones necesarias
-                return "redirect:/users/index";
+
+                return "redirect:/users/index?success=true";
             } else {
                 return "home/login";
             }
@@ -59,9 +62,17 @@ public class UserController {
         return "home/register";
     }
 
-
     @GetMapping("/index")
     public String home() {
         return "home/index";
     }
+
+    @GetMapping("/list")
+    public String listUsers(Model model) {
+        List<UserResponse> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "home/list";
+    }
+
+
 }
